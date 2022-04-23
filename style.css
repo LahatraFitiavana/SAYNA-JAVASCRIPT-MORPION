@@ -1,0 +1,8 @@
+
+.container.player-2 .box:hover{
+    background-color:rgb(255, 126, 126);
+}
+
+.container.player-1 .box:hover{
+    background-color:rgb(130, 255, 126);
+}
