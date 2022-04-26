@@ -237,7 +237,7 @@
             top: 50%;
             left: 50%;
             width: 200px;
-            heigth: 200px;
+            height: 200px;
             border: 1px solid black;
         }
 
@@ -248,22 +248,27 @@
             -ms-transform: translate(-50%, -50%);
         }
     </style>
-    <link rel="stylesheet" href="style.css">
 </head>
 
-<body onload='reset()'>
+<body onload="reset()">
 
     <div class='container'>
         <h1 class='name'>Tic-Tac-Toe</h1>
 
-        <!--
-        <div class="choose-char">
-            <h2 class="name">choose your charachter</h2>
-            <button class="X-char option">X</button>
-            <button class="0-char option">0</button>
-        </div>
-        -->
+        <h2>LEADERBOARD</h2>
         <div class='row range'>
+            <h3>wins</h3>
+            <div class='col-6 turn player-turn row'>
+                <div class='col-6 score you-score'>0</div>
+                <div class='col-6 you-name'>YOU</div>
+            </div>
+            <div class='col-6 turn cpu-turn row'>
+                <div class='col-6'>CPU</div>
+                <div class='col-6 cpu-score'>0</div>
+            </div>
+        </div>
+        <div class='row range'>
+            <h3>losses</h3>
             <div class='col-6 turn player-turn row'>
                 <div class='col-6 score you-score'>0</div>
                 <div class='col-6 you-name'>YOU</div>
@@ -274,27 +279,30 @@
             </div>
         </div>
 
-            <div class="joueur"> Player </div>
-            <p>choose your  character</p>
-            <p>
-                <button onclick="setX()">X</button>
-                <button onclick="set0()">0</button>
-            </p>
-            <button class="reset" onclick="reset()">reset</button>
+        <p>choose your character</p>
+        <p>
+            <button onclick="setX()">X</button>
+            <button onclick="set0()">0</button>
+        </p>
+        <p class="chars"></p>
+        <h2 class="now"></h2>
+        <button class="reset" onclick="reset()">reset</button>
+
         <div class='grid-container'>
-            <button class='grid-item' id='item1' >X</button>
-            <button class='grid-item' id='item2'>0</button>
-            <button class='grid-item' id='item3' ></button>
-            <button class='grid-item' id='item4'></button>
-            <button class='grid-item' id='item5' ></button>
-            <button class='grid-item' id='item6' ></button>
-            <button class='grid-item' id='item7' ></button>
-            <button class='grid-item' id='item8' ></button>
-            <button class='grid-item' id='item9' ></button>
+            <button class='grid-item' id='item1' onclick='choiseCase(this,this.id)'>X</button>
+            <button class='grid-item' id='item2' onclick='choiseCase(this,this.id)'>0</button>
+            <button class='grid-item' id='item3' onclick='choiseCase(this,this.id)'></button>
+            <button class='grid-item' id='item4' onclick='choiseCase(this,this.id)'></button>
+            <button class='grid-item' id='item5' onclick='choiseCase(this,this.id)'></button>
+            <button class='grid-item' id='item6' onclick='choiseCase(this,this.id)'></button>
+            <button class='grid-item' id='item7' onclick='choiseCase(this,this.id)'></button>
+            <button class='grid-item' id='item8' onclick='choiseCase(this,this.id)'></button>
+            <button class='grid-item' id='item9' onclick='choiseCase(this,this.id)'></button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
+
 </body>
 
 </html>
