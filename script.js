@@ -2,7 +2,6 @@ let player_char = '0';
 let cpu_char = 'X';
 let player = 'player';
 
-
 let player_wins = 0;
 let cpu_wins = 0;
 
@@ -26,23 +25,6 @@ for (let i = 0; i < 3; i++) {
 
 let cpu_choices = [...grid]
 
-/*
-function choiseCase(element) {
-    console.log(player);
-    let content = '';
-    if (player == 'player')
-        content = player_char;
-    else
-        content = cpu_char;
-    element.textContent = content;
-    isGameOver();
-    if (player == 'player')
-        player = 'cpu';
-    else
-        player = 'player';
-    now.innerHTML = `<p>${player}'s turn</p>`;
-}
-*/
 
 function choiseCase(element, id) {
 
@@ -81,16 +63,26 @@ function cpuPlay() {
     now.innerHTML = `<p>${player}'s turn</p>`;
 }
 
-
-function start() {
+function play(){
+    for(let i=0;i<9;i++){
+        items[i].disabled=false;
+    }
     if (player == 'cpu') {
-        cpuPlay();
-    } else;
+        let rand = Math.ceil(Math.random() * items.length - 1);
+        let i,j;
+        [i, j] = transform(rand);
+        items[rand].textContent = cpu_char;
+        grid[i][j] = 'c';
+        player = 'player';
+        now.innerHTML = `<p>${player}'s turn</p>`;
+    }
 }
 
 function reset() {
+
     for (let i = 0; i < 9; i++) {
         items[i].textContent = '';
+        items[i].disabled=true;
     }
     player_char = '0';
     cpu_char = 'X';
@@ -106,16 +98,9 @@ function reset() {
         player = 'player';
     chars.innerHTML = `<p> by default player ${player_char} cpu ${cpu_char}</p>`;
     now.innerHTML = `<b> ${player}'s turn</b>`;
-    if (player == 'cpu') {
-        let rand = Math.ceil(Math.random() * items.length - 1);
-        let i,j;
-        [i, j] = transform(rand);
-        items[rand].textContent = cpu_char;
-        grid[i][j] = 'c';
-        player = 'player';
-        now.innerHTML = `<p>${player}'s turn</p>`;
-    }
 }
+
+
 
 function setX() {
     player_char = 'X';
@@ -190,3 +175,5 @@ let transform = (i) => {
             break;
     }
 }
+
+
