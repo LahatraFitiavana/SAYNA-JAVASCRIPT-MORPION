@@ -13,6 +13,15 @@ let running = true;
 let items = document.querySelectorAll('.grid-item');
 let chars = document.querySelector('.chars');
 let now = document.querySelector('.now');
+let win = document.querySelector('.win');
+let cpuLoss = document.querySelector('.cpu-loss');
+let playerLoss = document.querySelector('.you-loss');
+let playerWin = document.querySelector('.you-score');
+let cpuWin = document.querySelector('.cpu-score');
+let resetButton = document.querySelector('.reset');
+let xButton = document.querySelector('.x-char');
+let oButton = document.querySelector('.o-char');
+let playButton = document.querySelector('.play');
 
 let player_score = 0;
 let cpu_score = 0;
@@ -34,11 +43,33 @@ function choiseCase(element, id) {
     element.textContent = player_char;
     grid[i][j] = 'p';
     isGameOver(grid);
-    player = 'cpu';
-    now.innerHTML = `<p>${player}'s turn</p>`;
-    cpuPlay();
-
-
+    if (isGameOver(grid)) {
+        now.innerHTML = ``;
+        xButton.disabled = true;
+        oButton.disabled = true;
+        resetButton.disabled = true;
+        player ='cpu';
+        for (let i = 0; i < 9; i++)
+            items[i].disabled = true;
+        if (isGameWon(grid)) {
+            win.innerHTML = `Win`;
+            player_wins += 1;
+            cpu_losses += 1;
+            playerWin.innerHTML = `${player_wins}`;
+            cpuLoss.innerHTML = `${cpu_losses}`;
+        } else {
+            win.textContent = 'It is a tie';
+        }
+        if (confirm('again')) {
+            reset();
+        }
+    } else {
+        player ='cpu';
+        window.onload=()=>{
+        now.innerHTML =`${player}'s turn`;
+        }
+        cpuPlay();
+    }
 }
 
 function cpuPlay() {
@@ -47,9 +78,10 @@ function cpuPlay() {
     let i, j;
     let rand;
     items.forEach((item, index) => {
-        if (item.textContent == '')
+        if (item.textContent == ''){
             empties.push(item);
         indices.push(index);
+        }
     })
     rand = Math.ceil(Math.random() * empties.length - 1);
     setTimeout(() => {
@@ -58,15 +90,38 @@ function cpuPlay() {
     }, 1000);
     [i, j] = transform(indices[rand]);
     grid[i][j] = 'c';
-    isGameOver(grid);
-    player = 'player';
-    now.innerHTML = `<p>${player}'s turn</p>`;
+    if (isGameOver(grid)) {
+        xButton.disabled = true;
+        oButton.disabled = true;
+        resetButton.disabled = true;
+        now.innerHTML = ``;
+        player ='cpu';
+        for (let i = 0; i < 9; i++)
+            items[i].disabled = true;
+        if (isGameWon(grid)) {
+            win.innerHTML = `Defeat`;
+            cpu_wins += 1;
+            player_losses += 1;
+            cpuWin.innerHTML = `${cpu_wins}`;
+            playerLoss.innerHTML = `${player_losses}`;
+
+        } else {
+            win.textContent = 'It is a tie';
+        }
+        if (confirm('again')) {
+            reset();
+        }
+    } else {
+        player = 'player';
+        now.innerHTML = `${player}'s turn`;
+    }
 }
 
 function play(){
     for(let i=0;i<9;i++){
         items[i].disabled=false;
     }
+    playButton.disabled = true;
     if (player == 'cpu') {
         let rand = Math.ceil(Math.random() * items.length - 1);
         let i,j;
@@ -74,7 +129,7 @@ function play(){
         items[rand].textContent = cpu_char;
         grid[i][j] = 'c';
         player = 'player';
-        now.innerHTML = `<p>${player}'s turn</p>`;
+        now.innerHTML= `<p>${player}'s turn</p>`;
     }
 }
 
@@ -84,6 +139,10 @@ function reset() {
         items[i].textContent = '';
         items[i].disabled=true;
     }
+    playButton.disabled = false;
+    xButton.disabled = false;
+    oButton.disabled = false;
+    resetButton.disabled = false;
     player_char = '0';
     cpu_char = 'X';
     chars.innerHTML = ``;
