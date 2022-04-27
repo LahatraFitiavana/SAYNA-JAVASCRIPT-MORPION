@@ -1,15 +1,17 @@
+// variables to store the characters and the current player
 let player_char = '0';
 let cpu_char = 'X';
 let player = 'player';
 
+// the number of wins of the player and the cpu
 let player_wins = 0;
 let cpu_wins = 0;
 
+// the number of losses of the player and the cpu
 let player_losses = 0;
 let cpu_losses = 0;
 
-let running = true;
-
+// things we manipulate
 let items = document.querySelectorAll('.grid-item');
 let chars = document.querySelector('.chars');
 let now = document.querySelector('.now');
@@ -23,18 +25,16 @@ let xButton = document.querySelector('.x-char');
 let oButton = document.querySelector('.o-char');
 let playButton = document.querySelector('.play');
 
-let player_score = 0;
-let cpu_score = 0;
 
+// the array in which we store the characters entered by the opponents so that we can check  if we someone won the game
 let grid = []
 
 for (let i = 0; i < 3; i++) {
     grid.push(['', '', ''])
 }
 
-let cpu_choices = [...grid]
 
-
+// what happens when the player check a case
 function choiseCase(element, id) {
 
     let index = id.split("")[4] - 1;
@@ -72,6 +72,7 @@ function choiseCase(element, id) {
     }
 }
 
+// what happens when it is the cpu's turn to play
 function cpuPlay() {
     let empties = [];
     let indices = [];
@@ -117,6 +118,7 @@ function cpuPlay() {
     }
 }
 
+// when it is the cpu's turn to play first
 function play(){
     for(let i=0;i<9;i++){
         items[i].disabled=false;
@@ -133,6 +135,7 @@ function play(){
     }
 }
 
+// reset everything apart from the leaderboard of course
 function reset() {
 
     for (let i = 0; i < 9; i++) {
@@ -160,7 +163,7 @@ function reset() {
 }
 
 
-
+// update the player's choice
 function setX() {
     player_char = 'X';
     cpu_char = '0';
@@ -173,6 +176,7 @@ function set0() {
     chars.innerHTML = `<p>player ${player_char} cpu ${cpu_char}</p>`;
 }
 
+//check if someone won the game
 function isGameWon(tab) {
     for (let i = 0; i < 3; i++) {
         if (tab[i][0] != '' && tab[i][0] == tab[i][1] && tab[i][0] == tab[i][2])
@@ -188,6 +192,7 @@ function isGameWon(tab) {
     return false;
 }
 
+// check if the game is over
 function isGameOver(tab) {
     let temp = true;
     if (isGameWon(tab))
@@ -203,6 +208,7 @@ function isGameOver(tab) {
     }
 }
 
+//transform an index to an array
 let transform = (i) => {
     switch (i) {
         case 0:
